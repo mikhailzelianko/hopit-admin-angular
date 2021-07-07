@@ -48,6 +48,14 @@ public class CacheConfiguration {
             createCache(cm, com.brodyagi.hopit.domain.User.class.getName());
             createCache(cm, com.brodyagi.hopit.domain.Authority.class.getName());
             createCache(cm, com.brodyagi.hopit.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.brodyagi.hopit.domain.District.class.getName());
+            createCache(cm, com.brodyagi.hopit.domain.Region.class.getName());
+            createCache(cm, com.brodyagi.hopit.domain.Country.class.getName());
+            createCache(cm, com.brodyagi.hopit.domain.Trail.class.getName());
+            createCache(cm, com.brodyagi.hopit.domain.Trail.class.getName() + ".trailPaths");
+            createCache(cm, com.brodyagi.hopit.domain.TrailPath.class.getName());
+            createCache(cm, com.brodyagi.hopit.domain.TrailPath.class.getName() + ".trailPathWaypoints");
+            createCache(cm, com.brodyagi.hopit.domain.TrailPathWaypoint.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

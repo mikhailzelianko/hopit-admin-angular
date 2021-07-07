@@ -1,0 +1,114 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="trail">
+      <h2 data-cy="trailDetailsHeading"><span jhiTranslate="hopitAdminApp.trail.detail.title">Trail</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ trail.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.title">Title</span></dt>
+        <dd>
+          <span>{{ trail.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.description">Description</span></dt>
+        <dd>
+          <span>{{ trail.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.shortDescription">Short Description</span></dt>
+        <dd>
+          <span>{{ trail.shortDescription }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.specialRules">Special Rules</span></dt>
+        <dd>
+          <span>{{ trail.specialRules }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.type">Type</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'hopitAdminApp.TrailType.' + trail.type }}">{{ trail.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.price">Price</span></dt>
+        <dd>
+          <span>{{ trail.price }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.enterLat">Enter Lat</span></dt>
+        <dd>
+          <span>{{ trail.enterLat }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.enterLong">Enter Long</span></dt>
+        <dd>
+          <span>{{ trail.enterLong }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagUnavailable">Flag Unavailable</span></dt>
+        <dd>
+          <span>{{ trail.flagUnavailable }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagWater">Flag Water</span></dt>
+        <dd>
+          <span>{{ trail.flagWater }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagBirdwatching">Flag Birdwatching</span></dt>
+        <dd>
+          <span>{{ trail.flagBirdwatching }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagReligious">Flag Religious</span></dt>
+        <dd>
+          <span>{{ trail.flagReligious }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagFishing">Flag Fishing</span></dt>
+        <dd>
+          <span>{{ trail.flagFishing }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagParking">Flag Parking</span></dt>
+        <dd>
+          <span>{{ trail.flagParking }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagWC">Flag WC</span></dt>
+        <dd>
+          <span>{{ trail.flagWC }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagCamping">Flag Camping</span></dt>
+        <dd>
+          <span>{{ trail.flagCamping }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagPicnic">Flag Picnic</span></dt>
+        <dd>
+          <span>{{ trail.flagPicnic }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.flagStreetfood">Flag Streetfood</span></dt>
+        <dd>
+          <span>{{ trail.flagStreetfood }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.source">Source</span></dt>
+        <dd>
+          <span>{{ trail.source }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.adminComment">Admin Comment</span></dt>
+        <dd>
+          <span>{{ trail.adminComment }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.country">Country</span></dt>
+        <dd>
+          <div *ngIf="trail.country">
+            <a [routerLink]="['/country', trail.country?.id, 'view']">{{ trail.country?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/trail', trail.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

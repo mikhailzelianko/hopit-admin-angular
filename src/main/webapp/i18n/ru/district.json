@@ -1,0 +1,25 @@
+{
+  "hopitAdminApp": {
+    "district": {
+      "home": {
+        "title": "Districts",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый District",
+        "createOrEditLabel": "Создать или отредактировать District",
+        "notFound": "Districts не найдено"
+      },
+      "created": "Новый District создан с идентификатором {{ param }}",
+      "updated": "District обновлен с идентификатором {{ param }}",
+      "deleted": "District удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить District {{ id }}?"
+      },
+      "detail": {
+        "title": "District"
+      },
+      "id": "ID",
+      "districtName": "District Name",
+      "region": "Region"
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "name": "Trail",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "shortDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "specialRules",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "TrailType",
+      "fieldValues": "HIKING,BIKE,WATER",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "enterLat",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "enterLong",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "flagUnavailable",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "flagWater",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "flagBirdwatching",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "flagReligious",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "flagFishing",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "flagParking",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "flagWC",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "flagCamping",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "flagPicnic",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "flagStreetfood",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "source",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adminComment",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "trail",
+      "relationshipName": "country",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "trailPath",
+      "otherEntityRelationshipName": "trail",
+      "relationshipName": "trailPath"
+    }
+  ],
+  "entityTableName": "trail",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210707172744"
+}

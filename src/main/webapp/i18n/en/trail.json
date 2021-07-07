@@ -1,0 +1,45 @@
+{
+  "hopitAdminApp": {
+    "trail": {
+      "home": {
+        "title": "Trails",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Trail",
+        "createOrEditLabel": "Create or edit a Trail",
+        "notFound": "No Trails found"
+      },
+      "created": "A new Trail is created with identifier {{ param }}",
+      "updated": "A Trail is updated with identifier {{ param }}",
+      "deleted": "A Trail is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Trail {{ id }}?"
+      },
+      "detail": {
+        "title": "Trail"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "shortDescription": "Short Description",
+      "specialRules": "Special Rules",
+      "type": "Type",
+      "price": "Price",
+      "enterLat": "Enter Lat",
+      "enterLong": "Enter Long",
+      "flagUnavailable": "Flag Unavailable",
+      "flagWater": "Flag Water",
+      "flagBirdwatching": "Flag Birdwatching",
+      "flagReligious": "Flag Religious",
+      "flagFishing": "Flag Fishing",
+      "flagParking": "Flag Parking",
+      "flagWC": "Flag WC",
+      "flagCamping": "Flag Camping",
+      "flagPicnic": "Flag Picnic",
+      "flagStreetfood": "Flag Streetfood",
+      "source": "Source",
+      "adminComment": "Admin Comment",
+      "country": "Country",
+      "trailPath": "Trail Path"
+    }
+  }
+}
