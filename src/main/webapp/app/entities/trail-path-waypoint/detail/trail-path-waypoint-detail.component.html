@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="trailPathWaypoint">
+      <h2 data-cy="trailPathWaypointDetailsHeading">
+        <span jhiTranslate="hopitAdminApp.trailPathWaypoint.detail.title">Trail Path Waypoint</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ trailPathWaypoint.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trailPathWaypoint.waypointLat">Waypoint Lat</span></dt>
+        <dd>
+          <span>{{ trailPathWaypoint.waypointLat }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trailPathWaypoint.waypointLong">Waypoint Long</span></dt>
+        <dd>
+          <span>{{ trailPathWaypoint.waypointLong }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trailPathWaypoint.trailpath">Trailpath</span></dt>
+        <dd>
+          <div *ngIf="trailPathWaypoint.trailpath">
+            <a [routerLink]="['/trail-path', trailPathWaypoint.trailpath?.id, 'view']">{{ trailPathWaypoint.trailpath?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/trail-path-waypoint', trailPathWaypoint.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+
+
+
+
+
+entity District {
+	districtName String required
+}
+
+entity Region {
+	regionName String required
+}
+
+entity Country {
+	countryName String required
+}
+
+enum TrailType {
+	HIKING, BIKE, WATER
+}
+
+entity Trail {	
+	title String required unique,
+	description String,
+	shortDescription String,
+	specialRules String,
+	type TrailType required,
+	
+	
+	price Double,
+	
+	enterLat Long,
+	enterLong Long,
+	
+	flagUnavailable Boolean,
+	flagWater Boolean,
+	flagBirdwatching Boolean,
+	flagReligious Boolean,
+	flagFishing Boolean,
+	flagParking Boolean,
+	flagWC Boolean,
+	flagCamping Boolean,
+	flagPicnic Boolean,
+	flagStreetfood Boolean,	
+	
+	source String,
+	adminComment String
+}
+
+entity TrailPath {
+	title String required,
+	description String
+}
+
+entity TrailPathWaypoint {
+	waypointLat Long,
+	waypointLong Long
+}
+
+
+relationship ManyToOne {
+	District{region} to Region
+}
+
+relationship ManyToOne {
+	Region{country} to Country
+}
+
+relationship OneToOne {
+	Trail{country} to Country
+}
+
+
+relationship OneToMany {
+	TrailPath to TrailPathWaypoint{trailpath},
+    Trail to TrailPath{trail}
+}

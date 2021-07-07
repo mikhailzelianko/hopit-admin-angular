@@ -1,0 +1,256 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-trail-heading" data-cy="TrailCreateUpdateHeading" jhiTranslate="hopitAdminApp.trail.home.createOrEditLabel">
+        Create or edit a Trail
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.title" for="field_title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.shortDescription" for="field_shortDescription"
+            >Short Description</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="shortDescription"
+            id="field_shortDescription"
+            data-cy="shortDescription"
+            formControlName="shortDescription"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.specialRules" for="field_specialRules">Special Rules</label>
+          <input
+            type="text"
+            class="form-control"
+            name="specialRules"
+            id="field_specialRules"
+            data-cy="specialRules"
+            formControlName="specialRules"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.type" for="field_type">Type</label>
+          <select class="form-control" name="type" formControlName="type" id="field_type" data-cy="type">
+            <option [ngValue]="null">{{ 'hopitAdminApp.TrailType.null' | translate }}</option>
+            <option value="HIKING">{{ 'hopitAdminApp.TrailType.HIKING' | translate }}</option>
+            <option value="BIKE">{{ 'hopitAdminApp.TrailType.BIKE' | translate }}</option>
+            <option value="WATER">{{ 'hopitAdminApp.TrailType.WATER' | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.price" for="field_price">Price</label>
+          <input type="number" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.enterLat" for="field_enterLat">Enter Lat</label>
+          <input type="number" class="form-control" name="enterLat" id="field_enterLat" data-cy="enterLat" formControlName="enterLat" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.enterLong" for="field_enterLong">Enter Long</label>
+          <input type="number" class="form-control" name="enterLong" id="field_enterLong" data-cy="enterLong" formControlName="enterLong" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagUnavailable" for="field_flagUnavailable"
+            >Flag Unavailable</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="flagUnavailable"
+            id="field_flagUnavailable"
+            data-cy="flagUnavailable"
+            formControlName="flagUnavailable"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagWater" for="field_flagWater">Flag Water</label>
+          <input type="checkbox" class="form-check" name="flagWater" id="field_flagWater" data-cy="flagWater" formControlName="flagWater" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagBirdwatching" for="field_flagBirdwatching"
+            >Flag Birdwatching</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="flagBirdwatching"
+            id="field_flagBirdwatching"
+            data-cy="flagBirdwatching"
+            formControlName="flagBirdwatching"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagReligious" for="field_flagReligious"
+            >Flag Religious</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="flagReligious"
+            id="field_flagReligious"
+            data-cy="flagReligious"
+            formControlName="flagReligious"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagFishing" for="field_flagFishing">Flag Fishing</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="flagFishing"
+            id="field_flagFishing"
+            data-cy="flagFishing"
+            formControlName="flagFishing"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagParking" for="field_flagParking">Flag Parking</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="flagParking"
+            id="field_flagParking"
+            data-cy="flagParking"
+            formControlName="flagParking"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagWC" for="field_flagWC">Flag WC</label>
+          <input type="checkbox" class="form-check" name="flagWC" id="field_flagWC" data-cy="flagWC" formControlName="flagWC" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagCamping" for="field_flagCamping">Flag Camping</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="flagCamping"
+            id="field_flagCamping"
+            data-cy="flagCamping"
+            formControlName="flagCamping"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagPicnic" for="field_flagPicnic">Flag Picnic</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="flagPicnic"
+            id="field_flagPicnic"
+            data-cy="flagPicnic"
+            formControlName="flagPicnic"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.flagStreetfood" for="field_flagStreetfood"
+            >Flag Streetfood</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="flagStreetfood"
+            id="field_flagStreetfood"
+            data-cy="flagStreetfood"
+            formControlName="flagStreetfood"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.source" for="field_source">Source</label>
+          <input type="text" class="form-control" name="source" id="field_source" data-cy="source" formControlName="source" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.adminComment" for="field_adminComment">Admin Comment</label>
+          <input
+            type="text"
+            class="form-control"
+            name="adminComment"
+            id="field_adminComment"
+            data-cy="adminComment"
+            formControlName="adminComment"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.country" for="field_country">Country</label>
+          <select class="form-control" id="field_country" data-cy="country" name="country" formControlName="country">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption"
+              *ngFor="let countryOption of countriesCollection; trackBy: trackCountryById"
+            >
+              {{ countryOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

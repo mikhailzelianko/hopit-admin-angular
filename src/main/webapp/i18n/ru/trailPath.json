@@ -1,0 +1,27 @@
+{
+  "hopitAdminApp": {
+    "trailPath": {
+      "home": {
+        "title": "Trail Paths",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Trail Path",
+        "createOrEditLabel": "Создать или отредактировать Trail Path",
+        "notFound": "Trail Paths не найдено"
+      },
+      "created": "Новый Trail Path создан с идентификатором {{ param }}",
+      "updated": "Trail Path обновлен с идентификатором {{ param }}",
+      "deleted": "Trail Path удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Trail Path {{ id }}?"
+      },
+      "detail": {
+        "title": "Trail Path"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "trailPathWaypoint": "Trail Path Waypoint",
+      "trail": "Trail"
+    }
+  }
+}

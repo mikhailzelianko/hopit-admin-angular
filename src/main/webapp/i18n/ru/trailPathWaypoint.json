@@ -1,0 +1,26 @@
+{
+  "hopitAdminApp": {
+    "trailPathWaypoint": {
+      "home": {
+        "title": "Trail Path Waypoints",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Trail Path Waypoint",
+        "createOrEditLabel": "Создать или отредактировать Trail Path Waypoint",
+        "notFound": "Trail Path Waypoints не найдено"
+      },
+      "created": "Новый Trail Path Waypoint создан с идентификатором {{ param }}",
+      "updated": "Trail Path Waypoint обновлен с идентификатором {{ param }}",
+      "deleted": "Trail Path Waypoint удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Trail Path Waypoint {{ id }}?"
+      },
+      "detail": {
+        "title": "Trail Path Waypoint"
+      },
+      "id": "ID",
+      "waypointLat": "Waypoint Lat",
+      "waypointLong": "Waypoint Long",
+      "trailpath": "Trailpath"
+    }
+  }
+}

@@ -1,0 +1,112 @@
+<div>
+  <h2 id="page-heading" data-cy="TrailHeading">
+    <span jhiTranslate="hopitAdminApp.trail.home.title">Trails</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="hopitAdminApp.trail.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-trail"
+        [routerLink]="['/trail/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="hopitAdminApp.trail.home.createLabel"> Create a new Trail </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="trails?.length === 0">
+    <span jhiTranslate="hopitAdminApp.trail.home.notFound">No trails found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="trails && trails.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.title">Title</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.shortDescription">Short Description</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.specialRules">Special Rules</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.type">Type</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.price">Price</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.enterLat">Enter Lat</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.enterLong">Enter Long</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagUnavailable">Flag Unavailable</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagWater">Flag Water</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagBirdwatching">Flag Birdwatching</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagReligious">Flag Religious</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagFishing">Flag Fishing</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagParking">Flag Parking</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagWC">Flag WC</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagCamping">Flag Camping</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagPicnic">Flag Picnic</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.flagStreetfood">Flag Streetfood</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.source">Source</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.adminComment">Admin Comment</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.country">Country</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trail of trails; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/trail', trail.id, 'view']">{{ trail.id }}</a>
+          </td>
+          <td>{{ trail.title }}</td>
+          <td>{{ trail.description }}</td>
+          <td>{{ trail.shortDescription }}</td>
+          <td>{{ trail.specialRules }}</td>
+          <td jhiTranslate="{{ 'hopitAdminApp.TrailType.' + trail.type }}">{{ trail.type }}</td>
+          <td>{{ trail.price }}</td>
+          <td>{{ trail.enterLat }}</td>
+          <td>{{ trail.enterLong }}</td>
+          <td>{{ trail.flagUnavailable }}</td>
+          <td>{{ trail.flagWater }}</td>
+          <td>{{ trail.flagBirdwatching }}</td>
+          <td>{{ trail.flagReligious }}</td>
+          <td>{{ trail.flagFishing }}</td>
+          <td>{{ trail.flagParking }}</td>
+          <td>{{ trail.flagWC }}</td>
+          <td>{{ trail.flagCamping }}</td>
+          <td>{{ trail.flagPicnic }}</td>
+          <td>{{ trail.flagStreetfood }}</td>
+          <td>{{ trail.source }}</td>
+          <td>{{ trail.adminComment }}</td>
+          <td>
+            <div *ngIf="trail.country">
+              <a [routerLink]="['/country', trail.country?.id, 'view']">{{ trail.country?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/trail', trail.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/trail', trail.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(trail)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
