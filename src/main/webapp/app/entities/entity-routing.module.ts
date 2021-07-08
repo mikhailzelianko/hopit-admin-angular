@@ -34,6 +34,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'hopitAdminApp.trailPathWaypoint.home.title' },
         loadChildren: () => import('./trail-path-waypoint/trail-path-waypoint.module').then(m => m.TrailPathWaypointModule),
       },
+      {
+        path: 'additional-map-object',
+        data: { pageTitle: 'hopitAdminApp.additionalMapObject.home.title' },
+        loadChildren: () => import('./additional-map-object/additional-map-object.module').then(m => m.AdditionalMapObjectModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

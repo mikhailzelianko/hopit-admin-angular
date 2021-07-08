@@ -56,6 +56,8 @@ public class CacheConfiguration {
             createCache(cm, com.brodyagi.hopit.domain.TrailPath.class.getName());
             createCache(cm, com.brodyagi.hopit.domain.TrailPath.class.getName() + ".trailPathWaypoints");
             createCache(cm, com.brodyagi.hopit.domain.TrailPathWaypoint.class.getName());
+            createCache(cm, com.brodyagi.hopit.domain.Trail.class.getName() + ".additionalMapObjects");
+            createCache(cm, com.brodyagi.hopit.domain.AdditionalMapObject.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

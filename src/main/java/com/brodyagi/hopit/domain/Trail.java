@@ -42,6 +42,13 @@ public class Trail implements Serializable {
     @Column(name = "type", nullable = false)
     private TrailType type;
 
+    @Lob
+    @Column(name = "cover_photo")
+    private byte[] coverPhoto;
+
+    @Column(name = "cover_photo_content_type")
+    private String coverPhotoContentType;
+
     @Column(name = "price")
     private Double price;
 
@@ -87,14 +94,26 @@ public class Trail implements Serializable {
     @Column(name = "admin_comment")
     private String adminComment;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Country country;
-
     @OneToMany(mappedBy = "trail")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "trailPathWaypoints", "trail" }, allowSetters = true)
     private Set<TrailPath> trailPaths = new HashSet<>();
+
+    @OneToMany(mappedBy = "trail")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "trail" }, allowSetters = true)
+    private Set<AdditionalMapObject> additionalMapObjects = new HashSet<>();
+
+    @ManyToOne
+    private Country country;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "country" }, allowSetters = true)
+    private Region region;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "region" }, allowSetters = true)
+    private District district;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -173,6 +192,32 @@ public class Trail implements Serializable {
 
     public void setType(TrailType type) {
         this.type = type;
+    }
+
+    public byte[] getCoverPhoto() {
+        return this.coverPhoto;
+    }
+
+    public Trail coverPhoto(byte[] coverPhoto) {
+        this.coverPhoto = coverPhoto;
+        return this;
+    }
+
+    public void setCoverPhoto(byte[] coverPhoto) {
+        this.coverPhoto = coverPhoto;
+    }
+
+    public String getCoverPhotoContentType() {
+        return this.coverPhotoContentType;
+    }
+
+    public Trail coverPhotoContentType(String coverPhotoContentType) {
+        this.coverPhotoContentType = coverPhotoContentType;
+        return this;
+    }
+
+    public void setCoverPhotoContentType(String coverPhotoContentType) {
+        this.coverPhotoContentType = coverPhotoContentType;
     }
 
     public Double getPrice() {
@@ -370,19 +415,6 @@ public class Trail implements Serializable {
         this.adminComment = adminComment;
     }
 
-    public Country getCountry() {
-        return this.country;
-    }
-
-    public Trail country(Country country) {
-        this.setCountry(country);
-        return this;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     public Set<TrailPath> getTrailPaths() {
         return this.trailPaths;
     }
@@ -414,6 +446,76 @@ public class Trail implements Serializable {
         this.trailPaths = trailPaths;
     }
 
+    public Set<AdditionalMapObject> getAdditionalMapObjects() {
+        return this.additionalMapObjects;
+    }
+
+    public Trail additionalMapObjects(Set<AdditionalMapObject> additionalMapObjects) {
+        this.setAdditionalMapObjects(additionalMapObjects);
+        return this;
+    }
+
+    public Trail addAdditionalMapObject(AdditionalMapObject additionalMapObject) {
+        this.additionalMapObjects.add(additionalMapObject);
+        additionalMapObject.setTrail(this);
+        return this;
+    }
+
+    public Trail removeAdditionalMapObject(AdditionalMapObject additionalMapObject) {
+        this.additionalMapObjects.remove(additionalMapObject);
+        additionalMapObject.setTrail(null);
+        return this;
+    }
+
+    public void setAdditionalMapObjects(Set<AdditionalMapObject> additionalMapObjects) {
+        if (this.additionalMapObjects != null) {
+            this.additionalMapObjects.forEach(i -> i.setTrail(null));
+        }
+        if (additionalMapObjects != null) {
+            additionalMapObjects.forEach(i -> i.setTrail(this));
+        }
+        this.additionalMapObjects = additionalMapObjects;
+    }
+
+    public Country getCountry() {
+        return this.country;
+    }
+
+    public Trail country(Country country) {
+        this.setCountry(country);
+        return this;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public Region getRegion() {
+        return this.region;
+    }
+
+    public Trail region(Region region) {
+        this.setRegion(region);
+        return this;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public District getDistrict() {
+        return this.district;
+    }
+
+    public Trail district(District district) {
+        this.setDistrict(district);
+        return this;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -443,6 +545,8 @@ public class Trail implements Serializable {
             ", shortDescription='" + getShortDescription() + "'" +
             ", specialRules='" + getSpecialRules() + "'" +
             ", type='" + getType() + "'" +
+            ", coverPhoto='" + getCoverPhoto() + "'" +
+            ", coverPhotoContentType='" + getCoverPhotoContentType() + "'" +
             ", price=" + getPrice() +
             ", enterLat=" + getEnterLat() +
             ", enterLong=" + getEnterLong() +

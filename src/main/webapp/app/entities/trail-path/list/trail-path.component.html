@@ -34,6 +34,7 @@
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trailPath.title">Title</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trailPath.distance">Distance</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trailPath.description">Description</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trailPath.trail">Trail</span></th>
           <th scope="col"></th>
@@ -45,6 +46,7 @@
             <a [routerLink]="['/trail-path', trailPath.id, 'view']">{{ trailPath.id }}</a>
           </td>
           <td>{{ trailPath.title }}</td>
+          <td>{{ trailPath.distance }}</td>
           <td>{{ trailPath.description }}</td>
           <td>
             <div *ngIf="trailPath.trail">

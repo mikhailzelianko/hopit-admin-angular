@@ -28,6 +28,8 @@ describe('Service Tests', () => {
         shortDescription: 'AAAAAAA',
         specialRules: 'AAAAAAA',
         type: TrailType.HIKING,
+        coverPhotoContentType: 'image/png',
+        coverPhoto: 'AAAAAAA',
         price: 0,
         enterLat: 0,
         enterLong: 0,
@@ -83,6 +85,7 @@ describe('Service Tests', () => {
             shortDescription: 'BBBBBB',
             specialRules: 'BBBBBB',
             type: 'BBBBBB',
+            coverPhoto: 'BBBBBB',
             price: 1,
             enterLat: 1,
             enterLong: 1,
@@ -116,13 +119,13 @@ describe('Service Tests', () => {
           {
             title: 'BBBBBB',
             description: 'BBBBBB',
-            enterLong: 1,
-            flagReligious: true,
+            enterLat: 1,
+            flagBirdwatching: true,
+            flagFishing: true,
             flagParking: true,
             flagWC: true,
-            flagCamping: true,
+            flagPicnic: true,
             flagStreetfood: true,
-            source: 'BBBBBB',
           },
           new Trail()
         );
@@ -147,6 +150,7 @@ describe('Service Tests', () => {
             shortDescription: 'BBBBBB',
             specialRules: 'BBBBBB',
             type: 'BBBBBB',
+            coverPhoto: 'BBBBBB',
             price: 1,
             enterLat: 1,
             enterLong: 1,
@@ -213,7 +217,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Trail to an array', () => {
-          const trailArray: ITrail[] = [{ id: 123 }, { id: 456 }, { id: 43633 }];
+          const trailArray: ITrail[] = [{ id: 123 }, { id: 456 }, { id: 68614 }];
           const trailCollection: ITrail[] = [{ id: 123 }];
           expectedResult = service.addTrailToCollectionIfMissing(trailCollection, ...trailArray);
           expect(expectedResult).toHaveLength(3);

@@ -34,6 +34,19 @@
         <dd>
           <span jhiTranslate="{{ 'hopitAdminApp.TrailType.' + trail.type }}">{{ trail.type }}</span>
         </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.coverPhoto">Cover Photo</span></dt>
+        <dd>
+          <div *ngIf="trail.coverPhoto">
+            <a (click)="openFile(trail.coverPhoto, trail.coverPhotoContentType)">
+              <img
+                [src]="'data:' + trail.coverPhotoContentType + ';base64,' + trail.coverPhoto"
+                style="max-width: 100%"
+                alt="trail image"
+              />
+            </a>
+            {{ trail.coverPhotoContentType }}, {{ byteSize(trail.coverPhoto) }}
+          </div>
+        </dd>
         <dt><span jhiTranslate="hopitAdminApp.trail.price">Price</span></dt>
         <dd>
           <span>{{ trail.price }}</span>
@@ -98,6 +111,18 @@
         <dd>
           <div *ngIf="trail.country">
             <a [routerLink]="['/country', trail.country?.id, 'view']">{{ trail.country?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.region">Region</span></dt>
+        <dd>
+          <div *ngIf="trail.region">
+            <a [routerLink]="['/region', trail.region?.id, 'view']">{{ trail.region?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.trail.district">District</span></dt>
+        <dd>
+          <div *ngIf="trail.district">
+            <a [routerLink]="['/district', trail.district?.id, 'view']">{{ trail.district?.id }}</a>
           </div>
         </dd>
       </dl>

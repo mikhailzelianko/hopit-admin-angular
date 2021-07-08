@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -7,8 +7,15 @@ import { finalize, map } from 'rxjs/operators';
 
 import { ITrail, Trail } from '../trail.model';
 import { TrailService } from '../service/trail.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { ICountry } from 'app/entities/country/country.model';
 import { CountryService } from 'app/entities/country/service/country.service';
+import { IRegion } from 'app/entities/region/region.model';
+import { RegionService } from 'app/entities/region/service/region.service';
+import { IDistrict } from 'app/entities/district/district.model';
+import { DistrictService } from 'app/entities/district/service/district.service';
 
 @Component({
   selector: 'jhi-trail-update',
@@ -17,7 +24,9 @@ import { CountryService } from 'app/entities/country/service/country.service';
 export class TrailUpdateComponent implements OnInit {
   isSaving = false;
 
-  countriesCollection: ICountry[] = [];
+  countriesSharedCollection: ICountry[] = [];
+  regionsSharedCollection: IRegion[] = [];
+  districtsSharedCollection: IDistrict[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -26,6 +35,8 @@ export class TrailUpdateComponent implements OnInit {
     shortDescription: [],
     specialRules: [],
     type: [null, [Validators.required]],
+    coverPhoto: [],
+    coverPhotoContentType: [],
     price: [],
     enterLat: [],
     enterLong: [],
@@ -42,11 +53,18 @@ export class TrailUpdateComponent implements OnInit {
     source: [],
     adminComment: [],
     country: [],
+    region: [],
+    district: [],
   });
 
   constructor(
+    protected dataUtils: DataUtils,
+    protected eventManager: EventManager,
     protected trailService: TrailService,
     protected countryService: CountryService,
+    protected regionService: RegionService,
+    protected districtService: DistrictService,
+    protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -57,6 +75,31 @@ export class TrailUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.eventManager.broadcast(new EventWithContent<AlertError>('hopitAdminApp.error', { ...err, key: 'error.file.' + err.key })),
+    });
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null,
+    });
+    if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
   }
 
   previousState(): void {
@@ -74,6 +117,14 @@ export class TrailUpdateComponent implements OnInit {
   }
 
   trackCountryById(index: number, item: ICountry): number {
+    return item.id!;
+  }
+
+  trackRegionById(index: number, item: IRegion): number {
+    return item.id!;
+  }
+
+  trackDistrictById(index: number, item: IDistrict): number {
     return item.id!;
   }
 
@@ -104,6 +155,8 @@ export class TrailUpdateComponent implements OnInit {
       shortDescription: trail.shortDescription,
       specialRules: trail.specialRules,
       type: trail.type,
+      coverPhoto: trail.coverPhoto,
+      coverPhotoContentType: trail.coverPhotoContentType,
       price: trail.price,
       enterLat: trail.enterLat,
       enterLong: trail.enterLong,
@@ -120,19 +173,39 @@ export class TrailUpdateComponent implements OnInit {
       source: trail.source,
       adminComment: trail.adminComment,
       country: trail.country,
+      region: trail.region,
+      district: trail.district,
     });
 
-    this.countriesCollection = this.countryService.addCountryToCollectionIfMissing(this.countriesCollection, trail.country);
+    this.countriesSharedCollection = this.countryService.addCountryToCollectionIfMissing(this.countriesSharedCollection, trail.country);
+    this.regionsSharedCollection = this.regionService.addRegionToCollectionIfMissing(this.regionsSharedCollection, trail.region);
+    this.districtsSharedCollection = this.districtService.addDistrictToCollectionIfMissing(this.districtsSharedCollection, trail.district);
   }
 
   protected loadRelationshipsOptions(): void {
     this.countryService
-      .query({ filter: 'trail-is-null' })
+      .query()
       .pipe(map((res: HttpResponse<ICountry[]>) => res.body ?? []))
       .pipe(
         map((countries: ICountry[]) => this.countryService.addCountryToCollectionIfMissing(countries, this.editForm.get('country')!.value))
       )
-      .subscribe((countries: ICountry[]) => (this.countriesCollection = countries));
+      .subscribe((countries: ICountry[]) => (this.countriesSharedCollection = countries));
+
+    this.regionService
+      .query()
+      .pipe(map((res: HttpResponse<IRegion[]>) => res.body ?? []))
+      .pipe(map((regions: IRegion[]) => this.regionService.addRegionToCollectionIfMissing(regions, this.editForm.get('region')!.value)))
+      .subscribe((regions: IRegion[]) => (this.regionsSharedCollection = regions));
+
+    this.districtService
+      .query()
+      .pipe(map((res: HttpResponse<IDistrict[]>) => res.body ?? []))
+      .pipe(
+        map((districts: IDistrict[]) =>
+          this.districtService.addDistrictToCollectionIfMissing(districts, this.editForm.get('district')!.value)
+        )
+      )
+      .subscribe((districts: IDistrict[]) => (this.districtsSharedCollection = districts));
   }
 
   protected createFromForm(): ITrail {
@@ -144,6 +217,8 @@ export class TrailUpdateComponent implements OnInit {
       shortDescription: this.editForm.get(['shortDescription'])!.value,
       specialRules: this.editForm.get(['specialRules'])!.value,
       type: this.editForm.get(['type'])!.value,
+      coverPhotoContentType: this.editForm.get(['coverPhotoContentType'])!.value,
+      coverPhoto: this.editForm.get(['coverPhoto'])!.value,
       price: this.editForm.get(['price'])!.value,
       enterLat: this.editForm.get(['enterLat'])!.value,
       enterLong: this.editForm.get(['enterLong'])!.value,
@@ -160,6 +235,8 @@ export class TrailUpdateComponent implements OnInit {
       source: this.editForm.get(['source'])!.value,
       adminComment: this.editForm.get(['adminComment'])!.value,
       country: this.editForm.get(['country'])!.value,
+      region: this.editForm.get(['region'])!.value,
+      district: this.editForm.get(['district'])!.value,
     };
   }
 }

@@ -139,6 +139,12 @@ public class TrailResource {
                     if (trail.getType() != null) {
                         existingTrail.setType(trail.getType());
                     }
+                    if (trail.getCoverPhoto() != null) {
+                        existingTrail.setCoverPhoto(trail.getCoverPhoto());
+                    }
+                    if (trail.getCoverPhotoContentType() != null) {
+                        existingTrail.setCoverPhotoContentType(trail.getCoverPhotoContentType());
+                    }
                     if (trail.getPrice() != null) {
                         existingTrail.setPrice(trail.getPrice());
                     }

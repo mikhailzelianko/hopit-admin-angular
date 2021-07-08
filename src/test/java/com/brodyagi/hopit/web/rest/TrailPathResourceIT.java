@@ -32,6 +32,9 @@ class TrailPathResourceIT {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_DISTANCE = 1;
+    private static final Integer UPDATED_DISTANCE = 2;
+
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
@@ -59,7 +62,7 @@ class TrailPathResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static TrailPath createEntity(EntityManager em) {
-        TrailPath trailPath = new TrailPath().title(DEFAULT_TITLE).description(DEFAULT_DESCRIPTION);
+        TrailPath trailPath = new TrailPath().title(DEFAULT_TITLE).distance(DEFAULT_DISTANCE).description(DEFAULT_DESCRIPTION);
         return trailPath;
     }
 
@@ -70,7 +73,7 @@ class TrailPathResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static TrailPath createUpdatedEntity(EntityManager em) {
-        TrailPath trailPath = new TrailPath().title(UPDATED_TITLE).description(UPDATED_DESCRIPTION);
+        TrailPath trailPath = new TrailPath().title(UPDATED_TITLE).distance(UPDATED_DISTANCE).description(UPDATED_DESCRIPTION);
         return trailPath;
     }
 
@@ -93,6 +96,7 @@ class TrailPathResourceIT {
         assertThat(trailPathList).hasSize(databaseSizeBeforeCreate + 1);
         TrailPath testTrailPath = trailPathList.get(trailPathList.size() - 1);
         assertThat(testTrailPath.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testTrailPath.getDistance()).isEqualTo(DEFAULT_DISTANCE);
         assertThat(testTrailPath.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
@@ -144,6 +148,7 @@ class TrailPathResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(trailPath.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
+            .andExpect(jsonPath("$.[*].distance").value(hasItem(DEFAULT_DISTANCE)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 
@@ -160,6 +165,7 @@ class TrailPathResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(trailPath.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
+            .andExpect(jsonPath("$.distance").value(DEFAULT_DISTANCE))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
@@ -182,7 +188,7 @@ class TrailPathResourceIT {
         TrailPath updatedTrailPath = trailPathRepository.findById(trailPath.getId()).get();
         // Disconnect from session so that the updates on updatedTrailPath are not directly saved in db
         em.detach(updatedTrailPath);
-        updatedTrailPath.title(UPDATED_TITLE).description(UPDATED_DESCRIPTION);
+        updatedTrailPath.title(UPDATED_TITLE).distance(UPDATED_DISTANCE).description(UPDATED_DESCRIPTION);
 
         restTrailPathMockMvc
             .perform(
@@ -197,6 +203,7 @@ class TrailPathResourceIT {
         assertThat(trailPathList).hasSize(databaseSizeBeforeUpdate);
         TrailPath testTrailPath = trailPathList.get(trailPathList.size() - 1);
         assertThat(testTrailPath.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testTrailPath.getDistance()).isEqualTo(UPDATED_DISTANCE);
         assertThat(testTrailPath.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
@@ -268,6 +275,8 @@ class TrailPathResourceIT {
         TrailPath partialUpdatedTrailPath = new TrailPath();
         partialUpdatedTrailPath.setId(trailPath.getId());
 
+        partialUpdatedTrailPath.description(UPDATED_DESCRIPTION);
+
         restTrailPathMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedTrailPath.getId())
@@ -281,7 +290,8 @@ class TrailPathResourceIT {
         assertThat(trailPathList).hasSize(databaseSizeBeforeUpdate);
         TrailPath testTrailPath = trailPathList.get(trailPathList.size() - 1);
         assertThat(testTrailPath.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testTrailPath.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testTrailPath.getDistance()).isEqualTo(DEFAULT_DISTANCE);
+        assertThat(testTrailPath.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test
@@ -296,7 +306,7 @@ class TrailPathResourceIT {
         TrailPath partialUpdatedTrailPath = new TrailPath();
         partialUpdatedTrailPath.setId(trailPath.getId());
 
-        partialUpdatedTrailPath.title(UPDATED_TITLE).description(UPDATED_DESCRIPTION);
+        partialUpdatedTrailPath.title(UPDATED_TITLE).distance(UPDATED_DISTANCE).description(UPDATED_DESCRIPTION);
 
         restTrailPathMockMvc
             .perform(
@@ -311,6 +321,7 @@ class TrailPathResourceIT {
         assertThat(trailPathList).hasSize(databaseSizeBeforeUpdate);
         TrailPath testTrailPath = trailPathList.get(trailPathList.size() - 1);
         assertThat(testTrailPath.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testTrailPath.getDistance()).isEqualTo(UPDATED_DISTANCE);
         assertThat(testTrailPath.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 

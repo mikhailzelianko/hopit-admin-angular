@@ -19,6 +19,7 @@
       },
       "id": "ID",
       "title": "Title",
+      "distance": "Distance",
       "description": "Description",
       "trailPathWaypoint": "Trail Path Waypoint",
       "trail": "Trail"

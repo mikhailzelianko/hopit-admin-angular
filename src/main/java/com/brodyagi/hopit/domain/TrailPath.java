@@ -27,6 +27,9 @@ public class TrailPath implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "distance")
+    private Integer distance;
+
     @Column(name = "description")
     private String description;
 
@@ -36,7 +39,7 @@ public class TrailPath implements Serializable {
     private Set<TrailPathWaypoint> trailPathWaypoints = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "country", "trailPaths" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "trailPaths", "additionalMapObjects", "country", "region", "district" }, allowSetters = true)
     private Trail trail;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -64,6 +67,19 @@ public class TrailPath implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Integer getDistance() {
+        return this.distance;
+    }
+
+    public TrailPath distance(Integer distance) {
+        this.distance = distance;
+        return this;
+    }
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
     }
 
     public String getDescription() {
@@ -148,6 +164,7 @@ public class TrailPath implements Serializable {
         return "TrailPath{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
+            ", distance=" + getDistance() +
             ", description='" + getDescription() + "'" +
             "}";
     }

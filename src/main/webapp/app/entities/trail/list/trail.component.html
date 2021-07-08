@@ -38,6 +38,7 @@
           <th scope="col"><span jhiTranslate="hopitAdminApp.trail.shortDescription">Short Description</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trail.specialRules">Special Rules</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trail.type">Type</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.coverPhoto">Cover Photo</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trail.price">Price</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trail.enterLat">Enter Lat</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trail.enterLong">Enter Long</span></th>
@@ -54,6 +55,8 @@
           <th scope="col"><span jhiTranslate="hopitAdminApp.trail.source">Source</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trail.adminComment">Admin Comment</span></th>
           <th scope="col"><span jhiTranslate="hopitAdminApp.trail.country">Country</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.region">Region</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.trail.district">District</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -67,6 +70,16 @@
           <td>{{ trail.shortDescription }}</td>
           <td>{{ trail.specialRules }}</td>
           <td jhiTranslate="{{ 'hopitAdminApp.TrailType.' + trail.type }}">{{ trail.type }}</td>
+          <td>
+            <a *ngIf="trail.coverPhoto" (click)="openFile(trail.coverPhoto, trail.coverPhotoContentType)">
+              <img
+                [src]="'data:' + trail.coverPhotoContentType + ';base64,' + trail.coverPhoto"
+                style="max-height: 30px"
+                alt="trail image"
+              />
+            </a>
+            <span *ngIf="trail.coverPhoto">{{ trail.coverPhotoContentType }}, {{ byteSize(trail.coverPhoto) }}</span>
+          </td>
           <td>{{ trail.price }}</td>
           <td>{{ trail.enterLat }}</td>
           <td>{{ trail.enterLong }}</td>
@@ -85,6 +98,16 @@
           <td>
             <div *ngIf="trail.country">
               <a [routerLink]="['/country', trail.country?.id, 'view']">{{ trail.country?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="trail.region">
+              <a [routerLink]="['/region', trail.region?.id, 'view']">{{ trail.region?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="trail.district">
+              <a [routerLink]="['/district', trail.district?.id, 'view']">{{ trail.district?.id }}</a>
             </div>
           </td>
           <td class="text-right">
