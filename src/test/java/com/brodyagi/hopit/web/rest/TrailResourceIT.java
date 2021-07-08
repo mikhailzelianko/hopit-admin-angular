@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link TrailResource} REST controller.
@@ -44,6 +45,11 @@ class TrailResourceIT {
 
     private static final TrailType DEFAULT_TYPE = TrailType.HIKING;
     private static final TrailType UPDATED_TYPE = TrailType.BIKE;
+
+    private static final byte[] DEFAULT_COVER_PHOTO = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_COVER_PHOTO = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_COVER_PHOTO_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_COVER_PHOTO_CONTENT_TYPE = "image/png";
 
     private static final Double DEFAULT_PRICE = 1D;
     private static final Double UPDATED_PRICE = 2D;
@@ -120,6 +126,8 @@ class TrailResourceIT {
             .shortDescription(DEFAULT_SHORT_DESCRIPTION)
             .specialRules(DEFAULT_SPECIAL_RULES)
             .type(DEFAULT_TYPE)
+            .coverPhoto(DEFAULT_COVER_PHOTO)
+            .coverPhotoContentType(DEFAULT_COVER_PHOTO_CONTENT_TYPE)
             .price(DEFAULT_PRICE)
             .enterLat(DEFAULT_ENTER_LAT)
             .enterLong(DEFAULT_ENTER_LONG)
@@ -151,6 +159,8 @@ class TrailResourceIT {
             .shortDescription(UPDATED_SHORT_DESCRIPTION)
             .specialRules(UPDATED_SPECIAL_RULES)
             .type(UPDATED_TYPE)
+            .coverPhoto(UPDATED_COVER_PHOTO)
+            .coverPhotoContentType(UPDATED_COVER_PHOTO_CONTENT_TYPE)
             .price(UPDATED_PRICE)
             .enterLat(UPDATED_ENTER_LAT)
             .enterLong(UPDATED_ENTER_LONG)
@@ -192,6 +202,8 @@ class TrailResourceIT {
         assertThat(testTrail.getShortDescription()).isEqualTo(DEFAULT_SHORT_DESCRIPTION);
         assertThat(testTrail.getSpecialRules()).isEqualTo(DEFAULT_SPECIAL_RULES);
         assertThat(testTrail.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testTrail.getCoverPhoto()).isEqualTo(DEFAULT_COVER_PHOTO);
+        assertThat(testTrail.getCoverPhotoContentType()).isEqualTo(DEFAULT_COVER_PHOTO_CONTENT_TYPE);
         assertThat(testTrail.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testTrail.getEnterLat()).isEqualTo(DEFAULT_ENTER_LAT);
         assertThat(testTrail.getEnterLong()).isEqualTo(DEFAULT_ENTER_LONG);
@@ -278,6 +290,8 @@ class TrailResourceIT {
             .andExpect(jsonPath("$.[*].shortDescription").value(hasItem(DEFAULT_SHORT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].specialRules").value(hasItem(DEFAULT_SPECIAL_RULES)))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].coverPhotoContentType").value(hasItem(DEFAULT_COVER_PHOTO_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].coverPhoto").value(hasItem(Base64Utils.encodeToString(DEFAULT_COVER_PHOTO))))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())))
             .andExpect(jsonPath("$.[*].enterLat").value(hasItem(DEFAULT_ENTER_LAT.intValue())))
             .andExpect(jsonPath("$.[*].enterLong").value(hasItem(DEFAULT_ENTER_LONG.intValue())))
@@ -312,6 +326,8 @@ class TrailResourceIT {
             .andExpect(jsonPath("$.shortDescription").value(DEFAULT_SHORT_DESCRIPTION))
             .andExpect(jsonPath("$.specialRules").value(DEFAULT_SPECIAL_RULES))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
+            .andExpect(jsonPath("$.coverPhotoContentType").value(DEFAULT_COVER_PHOTO_CONTENT_TYPE))
+            .andExpect(jsonPath("$.coverPhoto").value(Base64Utils.encodeToString(DEFAULT_COVER_PHOTO)))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()))
             .andExpect(jsonPath("$.enterLat").value(DEFAULT_ENTER_LAT.intValue()))
             .andExpect(jsonPath("$.enterLong").value(DEFAULT_ENTER_LONG.intValue()))
@@ -354,6 +370,8 @@ class TrailResourceIT {
             .shortDescription(UPDATED_SHORT_DESCRIPTION)
             .specialRules(UPDATED_SPECIAL_RULES)
             .type(UPDATED_TYPE)
+            .coverPhoto(UPDATED_COVER_PHOTO)
+            .coverPhotoContentType(UPDATED_COVER_PHOTO_CONTENT_TYPE)
             .price(UPDATED_PRICE)
             .enterLat(UPDATED_ENTER_LAT)
             .enterLong(UPDATED_ENTER_LONG)
@@ -387,6 +405,8 @@ class TrailResourceIT {
         assertThat(testTrail.getShortDescription()).isEqualTo(UPDATED_SHORT_DESCRIPTION);
         assertThat(testTrail.getSpecialRules()).isEqualTo(UPDATED_SPECIAL_RULES);
         assertThat(testTrail.getType()).isEqualTo(UPDATED_TYPE);
+        assertThat(testTrail.getCoverPhoto()).isEqualTo(UPDATED_COVER_PHOTO);
+        assertThat(testTrail.getCoverPhotoContentType()).isEqualTo(UPDATED_COVER_PHOTO_CONTENT_TYPE);
         assertThat(testTrail.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testTrail.getEnterLat()).isEqualTo(UPDATED_ENTER_LAT);
         assertThat(testTrail.getEnterLong()).isEqualTo(UPDATED_ENTER_LONG);
@@ -475,15 +495,16 @@ class TrailResourceIT {
         partialUpdatedTrail
             .title(UPDATED_TITLE)
             .specialRules(UPDATED_SPECIAL_RULES)
+            .price(UPDATED_PRICE)
             .enterLat(UPDATED_ENTER_LAT)
             .enterLong(UPDATED_ENTER_LONG)
             .flagUnavailable(UPDATED_FLAG_UNAVAILABLE)
             .flagWater(UPDATED_FLAG_WATER)
-            .flagBirdwatching(UPDATED_FLAG_BIRDWATCHING)
+            .flagReligious(UPDATED_FLAG_RELIGIOUS)
             .flagFishing(UPDATED_FLAG_FISHING)
-            .flagParking(UPDATED_FLAG_PARKING)
-            .flagCamping(UPDATED_FLAG_CAMPING)
-            .flagStreetfood(UPDATED_FLAG_STREETFOOD)
+            .flagWC(UPDATED_FLAG_WC)
+            .flagPicnic(UPDATED_FLAG_PICNIC)
+            .source(UPDATED_SOURCE)
             .adminComment(UPDATED_ADMIN_COMMENT);
 
         restTrailMockMvc
@@ -503,20 +524,22 @@ class TrailResourceIT {
         assertThat(testTrail.getShortDescription()).isEqualTo(DEFAULT_SHORT_DESCRIPTION);
         assertThat(testTrail.getSpecialRules()).isEqualTo(UPDATED_SPECIAL_RULES);
         assertThat(testTrail.getType()).isEqualTo(DEFAULT_TYPE);
-        assertThat(testTrail.getPrice()).isEqualTo(DEFAULT_PRICE);
+        assertThat(testTrail.getCoverPhoto()).isEqualTo(DEFAULT_COVER_PHOTO);
+        assertThat(testTrail.getCoverPhotoContentType()).isEqualTo(DEFAULT_COVER_PHOTO_CONTENT_TYPE);
+        assertThat(testTrail.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testTrail.getEnterLat()).isEqualTo(UPDATED_ENTER_LAT);
         assertThat(testTrail.getEnterLong()).isEqualTo(UPDATED_ENTER_LONG);
         assertThat(testTrail.getFlagUnavailable()).isEqualTo(UPDATED_FLAG_UNAVAILABLE);
         assertThat(testTrail.getFlagWater()).isEqualTo(UPDATED_FLAG_WATER);
-        assertThat(testTrail.getFlagBirdwatching()).isEqualTo(UPDATED_FLAG_BIRDWATCHING);
-        assertThat(testTrail.getFlagReligious()).isEqualTo(DEFAULT_FLAG_RELIGIOUS);
+        assertThat(testTrail.getFlagBirdwatching()).isEqualTo(DEFAULT_FLAG_BIRDWATCHING);
+        assertThat(testTrail.getFlagReligious()).isEqualTo(UPDATED_FLAG_RELIGIOUS);
         assertThat(testTrail.getFlagFishing()).isEqualTo(UPDATED_FLAG_FISHING);
-        assertThat(testTrail.getFlagParking()).isEqualTo(UPDATED_FLAG_PARKING);
-        assertThat(testTrail.getFlagWC()).isEqualTo(DEFAULT_FLAG_WC);
-        assertThat(testTrail.getFlagCamping()).isEqualTo(UPDATED_FLAG_CAMPING);
-        assertThat(testTrail.getFlagPicnic()).isEqualTo(DEFAULT_FLAG_PICNIC);
-        assertThat(testTrail.getFlagStreetfood()).isEqualTo(UPDATED_FLAG_STREETFOOD);
-        assertThat(testTrail.getSource()).isEqualTo(DEFAULT_SOURCE);
+        assertThat(testTrail.getFlagParking()).isEqualTo(DEFAULT_FLAG_PARKING);
+        assertThat(testTrail.getFlagWC()).isEqualTo(UPDATED_FLAG_WC);
+        assertThat(testTrail.getFlagCamping()).isEqualTo(DEFAULT_FLAG_CAMPING);
+        assertThat(testTrail.getFlagPicnic()).isEqualTo(UPDATED_FLAG_PICNIC);
+        assertThat(testTrail.getFlagStreetfood()).isEqualTo(DEFAULT_FLAG_STREETFOOD);
+        assertThat(testTrail.getSource()).isEqualTo(UPDATED_SOURCE);
         assertThat(testTrail.getAdminComment()).isEqualTo(UPDATED_ADMIN_COMMENT);
     }
 
@@ -538,6 +561,8 @@ class TrailResourceIT {
             .shortDescription(UPDATED_SHORT_DESCRIPTION)
             .specialRules(UPDATED_SPECIAL_RULES)
             .type(UPDATED_TYPE)
+            .coverPhoto(UPDATED_COVER_PHOTO)
+            .coverPhotoContentType(UPDATED_COVER_PHOTO_CONTENT_TYPE)
             .price(UPDATED_PRICE)
             .enterLat(UPDATED_ENTER_LAT)
             .enterLong(UPDATED_ENTER_LONG)
@@ -571,6 +596,8 @@ class TrailResourceIT {
         assertThat(testTrail.getShortDescription()).isEqualTo(UPDATED_SHORT_DESCRIPTION);
         assertThat(testTrail.getSpecialRules()).isEqualTo(UPDATED_SPECIAL_RULES);
         assertThat(testTrail.getType()).isEqualTo(UPDATED_TYPE);
+        assertThat(testTrail.getCoverPhoto()).isEqualTo(UPDATED_COVER_PHOTO);
+        assertThat(testTrail.getCoverPhotoContentType()).isEqualTo(UPDATED_COVER_PHOTO_CONTENT_TYPE);
         assertThat(testTrail.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testTrail.getEnterLat()).isEqualTo(UPDATED_ENTER_LAT);
         assertThat(testTrail.getEnterLong()).isEqualTo(UPDATED_ENTER_LONG);

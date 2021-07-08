@@ -4,6 +4,7 @@ import { ITrail } from 'app/entities/trail/trail.model';
 export interface ITrailPath {
   id?: number;
   title?: string;
+  distance?: number | null;
   description?: string | null;
   trailPathWaypoints?: ITrailPathWaypoint[] | null;
   trail?: ITrail | null;
@@ -13,6 +14,7 @@ export class TrailPath implements ITrailPath {
   constructor(
     public id?: number,
     public title?: string,
+    public distance?: number | null,
     public description?: string | null,
     public trailPathWaypoints?: ITrailPathWaypoint[] | null,
     public trail?: ITrail | null

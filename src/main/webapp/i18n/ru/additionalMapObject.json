@@ -1,0 +1,29 @@
+{
+  "hopitAdminApp": {
+    "additionalMapObject": {
+      "home": {
+        "title": "Additional Map Objects",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Additional Map Object",
+        "createOrEditLabel": "Создать или отредактировать Additional Map Object",
+        "notFound": "Additional Map Objects не найдено"
+      },
+      "created": "Новый Additional Map Object создан с идентификатором {{ param }}",
+      "updated": "Additional Map Object обновлен с идентификатором {{ param }}",
+      "deleted": "Additional Map Object удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Additional Map Object {{ id }}?"
+      },
+      "detail": {
+        "title": "Additional Map Object"
+      },
+      "id": "ID",
+      "title": "Title",
+      "objectLat": "Object Lat",
+      "objectLong": "Object Long",
+      "type": "Type",
+      "description": "Description",
+      "trail": "Trail"
+    }
+  }
+}

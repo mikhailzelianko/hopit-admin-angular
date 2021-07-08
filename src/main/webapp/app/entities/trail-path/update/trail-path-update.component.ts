@@ -22,6 +22,7 @@ export class TrailPathUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     title: [null, [Validators.required]],
+    distance: [],
     description: [],
     trail: [],
   });
@@ -82,6 +83,7 @@ export class TrailPathUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: trailPath.id,
       title: trailPath.title,
+      distance: trailPath.distance,
       description: trailPath.description,
       trail: trailPath.trail,
     });
@@ -102,6 +104,7 @@ export class TrailPathUpdateComponent implements OnInit {
       ...new TrailPath(),
       id: this.editForm.get(['id'])!.value,
       title: this.editForm.get(['title'])!.value,
+      distance: this.editForm.get(['distance'])!.value,
       description: this.editForm.get(['description'])!.value,
       trail: this.editForm.get(['trail'])!.value,
     };

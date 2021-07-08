@@ -21,12 +21,14 @@
     <include file="config/liquibase/changelog/20210707172744_added_entity_Trail.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210707172745_added_entity_TrailPath.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210707172746_added_entity_TrailPathWaypoint.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210708150337_added_entity_AdditionalMapObject.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20210707172741_added_entity_constraints_District.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210707172742_added_entity_constraints_Region.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210707172744_added_entity_constraints_Trail.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210707172745_added_entity_constraints_TrailPath.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210707172746_added_entity_constraints_TrailPathWaypoint.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210708150337_added_entity_constraints_AdditionalMapObject.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

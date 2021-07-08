@@ -7,6 +7,10 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "distance",
+      "fieldType": "Integer"
+    },
+    {
       "fieldName": "description",
       "fieldType": "String"
     }

@@ -23,6 +23,7 @@
       "shortDescription": "Short Description",
       "specialRules": "Special Rules",
       "type": "Type",
+      "coverPhoto": "Cover Photo",
       "price": "Price",
       "enterLat": "Enter Lat",
       "enterLong": "Enter Long",
@@ -38,8 +39,11 @@
       "flagStreetfood": "Flag Streetfood",
       "source": "Source",
       "adminComment": "Admin Comment",
+      "trailPath": "Trail Path",
+      "additionalMapObject": "Additional Map Object",
       "country": "Country",
-      "trailPath": "Trail Path"
+      "region": "Region",
+      "district": "District"
     }
   }
 }

@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="additionalMapObject">
+      <h2 data-cy="additionalMapObjectDetailsHeading">
+        <span jhiTranslate="hopitAdminApp.additionalMapObject.detail.title">Additional Map Object</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ additionalMapObject.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.additionalMapObject.title">Title</span></dt>
+        <dd>
+          <span>{{ additionalMapObject.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.additionalMapObject.objectLat">Object Lat</span></dt>
+        <dd>
+          <span>{{ additionalMapObject.objectLat }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.additionalMapObject.objectLong">Object Long</span></dt>
+        <dd>
+          <span>{{ additionalMapObject.objectLong }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.additionalMapObject.type">Type</span></dt>
+        <dd>
+          <span>{{ additionalMapObject.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.additionalMapObject.description">Description</span></dt>
+        <dd>
+          <span>{{ additionalMapObject.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="hopitAdminApp.additionalMapObject.trail">Trail</span></dt>
+        <dd>
+          <div *ngIf="additionalMapObject.trail">
+            <a [routerLink]="['/trail', additionalMapObject.trail?.id, 'view']">{{ additionalMapObject.trail?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/additional-map-object', additionalMapObject.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

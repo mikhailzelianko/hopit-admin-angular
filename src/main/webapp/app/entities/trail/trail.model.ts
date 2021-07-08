@@ -1,5 +1,8 @@
-import { ICountry } from 'app/entities/country/country.model';
 import { ITrailPath } from 'app/entities/trail-path/trail-path.model';
+import { IAdditionalMapObject } from 'app/entities/additional-map-object/additional-map-object.model';
+import { ICountry } from 'app/entities/country/country.model';
+import { IRegion } from 'app/entities/region/region.model';
+import { IDistrict } from 'app/entities/district/district.model';
 import { TrailType } from 'app/entities/enumerations/trail-type.model';
 
 export interface ITrail {
@@ -9,6 +12,8 @@ export interface ITrail {
   shortDescription?: string | null;
   specialRules?: string | null;
   type?: TrailType;
+  coverPhotoContentType?: string | null;
+  coverPhoto?: string | null;
   price?: number | null;
   enterLat?: number | null;
   enterLong?: number | null;
@@ -24,8 +29,11 @@ export interface ITrail {
   flagStreetfood?: boolean | null;
   source?: string | null;
   adminComment?: string | null;
-  country?: ICountry | null;
   trailPaths?: ITrailPath[] | null;
+  additionalMapObjects?: IAdditionalMapObject[] | null;
+  country?: ICountry | null;
+  region?: IRegion | null;
+  district?: IDistrict | null;
 }
 
 export class Trail implements ITrail {
@@ -36,6 +44,8 @@ export class Trail implements ITrail {
     public shortDescription?: string | null,
     public specialRules?: string | null,
     public type?: TrailType,
+    public coverPhotoContentType?: string | null,
+    public coverPhoto?: string | null,
     public price?: number | null,
     public enterLat?: number | null,
     public enterLong?: number | null,
@@ -51,8 +61,11 @@ export class Trail implements ITrail {
     public flagStreetfood?: boolean | null,
     public source?: string | null,
     public adminComment?: string | null,
+    public trailPaths?: ITrailPath[] | null,
+    public additionalMapObjects?: IAdditionalMapObject[] | null,
     public country?: ICountry | null,
-    public trailPaths?: ITrailPath[] | null
+    public region?: IRegion | null,
+    public district?: IDistrict | null
   ) {
     this.flagUnavailable = this.flagUnavailable ?? false;
     this.flagWater = this.flagWater ?? false;

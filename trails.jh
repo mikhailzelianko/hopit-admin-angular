@@ -1,8 +1,4 @@
 
-
-
-
-
 entity District {
 	districtName String required
 }
@@ -25,7 +21,7 @@ entity Trail {
 	shortDescription String,
 	specialRules String,
 	type TrailType required,
-	
+	coverPhoto ImageBlob,
 	
 	price Double,
 	
@@ -49,12 +45,21 @@ entity Trail {
 
 entity TrailPath {
 	title String required,
+	distance Integer,
 	description String
 }
 
 entity TrailPathWaypoint {
 	waypointLat Long,
 	waypointLong Long
+}
+
+entity AdditionalMapObject {
+	title String required,
+	objectLat Long,
+	objectLong Long,
+	type String,
+	description String
 }
 
 
@@ -66,12 +71,15 @@ relationship ManyToOne {
 	Region{country} to Country
 }
 
-relationship OneToOne {
-	Trail{country} to Country
+relationship ManyToOne {
+	Trail{country} to Country,
+	Trail{region} to Region,
+	Trail{district} to District
 }
 
 
 relationship OneToMany {
 	TrailPath to TrailPathWaypoint{trailpath},
     Trail to TrailPath{trail}
+    Trail to AdditionalMapObject{trail}
 }

@@ -23,6 +23,7 @@ describe('Service Tests', () => {
       elemDefault = {
         id: 0,
         title: 'AAAAAAA',
+        distance: 0,
         description: 'AAAAAAA',
       };
     });
@@ -60,6 +61,7 @@ describe('Service Tests', () => {
           {
             id: 1,
             title: 'BBBBBB',
+            distance: 1,
             description: 'BBBBBB',
           },
           elemDefault
@@ -78,6 +80,7 @@ describe('Service Tests', () => {
         const patchObject = Object.assign(
           {
             title: 'BBBBBB',
+            distance: 1,
             description: 'BBBBBB',
           },
           new TrailPath()
@@ -99,6 +102,7 @@ describe('Service Tests', () => {
           {
             id: 1,
             title: 'BBBBBB',
+            distance: 1,
             description: 'BBBBBB',
           },
           elemDefault
@@ -151,7 +155,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique TrailPath to an array', () => {
-          const trailPathArray: ITrailPath[] = [{ id: 123 }, { id: 456 }, { id: 96567 }];
+          const trailPathArray: ITrailPath[] = [{ id: 123 }, { id: 456 }, { id: 4591 }];
           const trailPathCollection: ITrailPath[] = [{ id: 123 }];
           expectedResult = service.addTrailPathToCollectionIfMissing(trailPathCollection, ...trailPathArray);
           expect(expectedResult).toHaveLength(3);

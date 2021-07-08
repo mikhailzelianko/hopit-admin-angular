@@ -77,6 +77,53 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.coverPhoto" for="field_coverPhoto">Cover Photo</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('coverPhotoContentType')!.value + ';base64,' + editForm.get('coverPhoto')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('coverPhoto')!.value"
+              alt="trail image"
+            />
+            <div *ngIf="editForm.get('coverPhoto')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left"
+                >{{ editForm.get('coverPhotoContentType')!.value }}, {{ byteSize(editForm.get('coverPhoto')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('coverPhoto', 'coverPhotoContentType', 'file_coverPhoto')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_coverPhoto"
+              data-cy="coverPhoto"
+              (change)="setFileData($event, 'coverPhoto', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="coverPhoto"
+            id="field_coverPhoto"
+            data-cy="coverPhoto"
+            formControlName="coverPhoto"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="coverPhotoContentType"
+            id="field_coverPhotoContentType"
+            formControlName="coverPhotoContentType"
+          />
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.price" for="field_price">Price</label>
           <input type="number" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
         </div>
@@ -228,9 +275,35 @@
             <option [ngValue]="null"></option>
             <option
               [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption"
-              *ngFor="let countryOption of countriesCollection; trackBy: trackCountryById"
+              *ngFor="let countryOption of countriesSharedCollection; trackBy: trackCountryById"
             >
               {{ countryOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.region" for="field_region">Region</label>
+          <select class="form-control" id="field_region" data-cy="region" name="region" formControlName="region">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="regionOption.id === editForm.get('region')!.value?.id ? editForm.get('region')!.value : regionOption"
+              *ngFor="let regionOption of regionsSharedCollection; trackBy: trackRegionById"
+            >
+              {{ regionOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="hopitAdminApp.trail.district" for="field_district">District</label>
+          <select class="form-control" id="field_district" data-cy="district" name="district" formControlName="district">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="districtOption.id === editForm.get('district')!.value?.id ? editForm.get('district')!.value : districtOption"
+              *ngFor="let districtOption of districtsSharedCollection; trackBy: trackDistrictById"
+            >
+              {{ districtOption.id }}
             </option>
           </select>
         </div>

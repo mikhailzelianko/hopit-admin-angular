@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITrail } from '../trail.model';
 import { TrailService } from '../service/trail.service';
 import { TrailDeleteDialogComponent } from '../delete/trail-delete-dialog.component';
+import { DataUtils } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-trail',
@@ -14,7 +15,7 @@ export class TrailComponent implements OnInit {
   trails?: ITrail[];
   isLoading = false;
 
-  constructor(protected trailService: TrailService, protected modalService: NgbModal) {}
+  constructor(protected trailService: TrailService, protected dataUtils: DataUtils, protected modalService: NgbModal) {}
 
   loadAll(): void {
     this.isLoading = true;
@@ -36,6 +37,14 @@ export class TrailComponent implements OnInit {
 
   trackId(index: number, item: ITrail): number {
     return item.id!;
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    return this.dataUtils.openFile(base64String, contentType);
   }
 
   delete(trail: ITrail): void {

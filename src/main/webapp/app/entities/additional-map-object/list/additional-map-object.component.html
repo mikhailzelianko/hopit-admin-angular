@@ -1,0 +1,92 @@
+<div>
+  <h2 id="page-heading" data-cy="AdditionalMapObjectHeading">
+    <span jhiTranslate="hopitAdminApp.additionalMapObject.home.title">Additional Map Objects</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="hopitAdminApp.additionalMapObject.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-additional-map-object"
+        [routerLink]="['/additional-map-object/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="hopitAdminApp.additionalMapObject.home.createLabel"> Create a new Additional Map Object </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="additionalMapObjects?.length === 0">
+    <span jhiTranslate="hopitAdminApp.additionalMapObject.home.notFound">No additionalMapObjects found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="additionalMapObjects && additionalMapObjects.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.additionalMapObject.title">Title</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.additionalMapObject.objectLat">Object Lat</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.additionalMapObject.objectLong">Object Long</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.additionalMapObject.type">Type</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.additionalMapObject.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="hopitAdminApp.additionalMapObject.trail">Trail</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let additionalMapObject of additionalMapObjects; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/additional-map-object', additionalMapObject.id, 'view']">{{ additionalMapObject.id }}</a>
+          </td>
+          <td>{{ additionalMapObject.title }}</td>
+          <td>{{ additionalMapObject.objectLat }}</td>
+          <td>{{ additionalMapObject.objectLong }}</td>
+          <td>{{ additionalMapObject.type }}</td>
+          <td>{{ additionalMapObject.description }}</td>
+          <td>
+            <div *ngIf="additionalMapObject.trail">
+              <a [routerLink]="['/trail', additionalMapObject.trail?.id, 'view']">{{ additionalMapObject.trail?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/additional-map-object', additionalMapObject.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/additional-map-object', additionalMapObject.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(additionalMapObject)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

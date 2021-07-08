@@ -29,6 +29,12 @@
             <column name="type" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="cover_photo" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="cover_photo_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="price" type="double">
                 <constraints nullable="true" />
             </column>
@@ -75,7 +81,13 @@
                 <constraints nullable="true" />
             </column>
             <column name="country_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_trail__country_id" />
+                <constraints nullable="true" />
+            </column>
+            <column name="region_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="district_id" type="bigint">
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -102,6 +114,8 @@
             <column name="short_description" type="string"/>
             <column name="special_rules" type="string"/>
             <column name="type" type="string"/>
+            <column name="cover_photo" type="blob"/>
+            <column name="cover_photo_content_type" type="string"/>
             <column name="price" type="numeric"/>
             <column name="enter_lat" type="numeric"/>
             <column name="enter_long" type="numeric"/>

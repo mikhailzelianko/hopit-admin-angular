@@ -44,8 +44,8 @@
     "clientTheme": "none",
     "clientThemeVariant": "",
     "reactive": false,
-    "entities": ["District", "Region", "Country", "Trail", "TrailPath", "TrailPathWaypoint"],
-    "lastLiquibaseTimestamp": 1625678866000
+    "entities": ["District", "Region", "Country", "Trail", "TrailPath", "TrailPathWaypoint", "AdditionalMapObject"],
+    "lastLiquibaseTimestamp": 1625756617000
   },
   "git-provider": "GitHub",
   "git-company": "vzskydog",

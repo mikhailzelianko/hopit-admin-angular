@@ -25,6 +25,11 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "coverPhoto",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
       "fieldName": "price",
       "fieldType": "Double"
     },
@@ -87,17 +92,34 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "country",
-      "otherEntityRelationshipName": "trail",
-      "relationshipName": "country",
-      "ownerSide": true
-    },
-    {
       "relationshipType": "one-to-many",
       "otherEntityName": "trailPath",
       "otherEntityRelationshipName": "trail",
       "relationshipName": "trailPath"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "additionalMapObject",
+      "otherEntityRelationshipName": "trail",
+      "relationshipName": "additionalMapObject"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "trail",
+      "relationshipName": "country"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "region",
+      "otherEntityRelationshipName": "trail",
+      "relationshipName": "region"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "district",
+      "otherEntityRelationshipName": "trail",
+      "relationshipName": "district"
     }
   ],
   "entityTableName": "trail",

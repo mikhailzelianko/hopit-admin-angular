@@ -129,6 +129,9 @@ public class TrailPathResource {
                     if (trailPath.getTitle() != null) {
                         existingTrailPath.setTitle(trailPath.getTitle());
                     }
+                    if (trailPath.getDistance() != null) {
+                        existingTrailPath.setDistance(trailPath.getDistance());
+                    }
                     if (trailPath.getDescription() != null) {
                         existingTrailPath.setDescription(trailPath.getDescription());
                     }
