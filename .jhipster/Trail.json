@@ -8,7 +8,8 @@
     },
     {
       "fieldName": "description",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "shortDescription",
@@ -16,7 +17,8 @@
     },
     {
       "fieldName": "specialRules",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     },
     {
       "fieldName": "type",
@@ -87,7 +89,8 @@
     },
     {
       "fieldName": "adminComment",
-      "fieldType": "String"
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
     }
   ],
   "relationships": [
