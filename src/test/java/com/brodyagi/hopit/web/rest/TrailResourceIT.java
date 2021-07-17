@@ -286,9 +286,9 @@ class TrailResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(trail.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].shortDescription").value(hasItem(DEFAULT_SHORT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].specialRules").value(hasItem(DEFAULT_SPECIAL_RULES)))
+            .andExpect(jsonPath("$.[*].specialRules").value(hasItem(DEFAULT_SPECIAL_RULES.toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].coverPhotoContentType").value(hasItem(DEFAULT_COVER_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].coverPhoto").value(hasItem(Base64Utils.encodeToString(DEFAULT_COVER_PHOTO))))
@@ -306,7 +306,7 @@ class TrailResourceIT {
             .andExpect(jsonPath("$.[*].flagPicnic").value(hasItem(DEFAULT_FLAG_PICNIC.booleanValue())))
             .andExpect(jsonPath("$.[*].flagStreetfood").value(hasItem(DEFAULT_FLAG_STREETFOOD.booleanValue())))
             .andExpect(jsonPath("$.[*].source").value(hasItem(DEFAULT_SOURCE)))
-            .andExpect(jsonPath("$.[*].adminComment").value(hasItem(DEFAULT_ADMIN_COMMENT)));
+            .andExpect(jsonPath("$.[*].adminComment").value(hasItem(DEFAULT_ADMIN_COMMENT.toString())));
     }
 
     @Test
@@ -322,9 +322,9 @@ class TrailResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(trail.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.shortDescription").value(DEFAULT_SHORT_DESCRIPTION))
-            .andExpect(jsonPath("$.specialRules").value(DEFAULT_SPECIAL_RULES))
+            .andExpect(jsonPath("$.specialRules").value(DEFAULT_SPECIAL_RULES.toString()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.coverPhotoContentType").value(DEFAULT_COVER_PHOTO_CONTENT_TYPE))
             .andExpect(jsonPath("$.coverPhoto").value(Base64Utils.encodeToString(DEFAULT_COVER_PHOTO)))
@@ -342,7 +342,7 @@ class TrailResourceIT {
             .andExpect(jsonPath("$.flagPicnic").value(DEFAULT_FLAG_PICNIC.booleanValue()))
             .andExpect(jsonPath("$.flagStreetfood").value(DEFAULT_FLAG_STREETFOOD.booleanValue()))
             .andExpect(jsonPath("$.source").value(DEFAULT_SOURCE))
-            .andExpect(jsonPath("$.adminComment").value(DEFAULT_ADMIN_COMMENT));
+            .andExpect(jsonPath("$.adminComment").value(DEFAULT_ADMIN_COMMENT.toString()));
     }
 
     @Test

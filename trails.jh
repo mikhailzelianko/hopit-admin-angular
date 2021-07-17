@@ -17,9 +17,9 @@ enum TrailType {
 
 entity Trail {	
 	title String required unique,
-	description String,
+	description TextBlob,
 	shortDescription String,
-	specialRules String,
+	specialRules TextBlob,
 	type TrailType required,
 	coverPhoto ImageBlob,
 	
@@ -40,7 +40,7 @@ entity Trail {
 	flagStreetfood Boolean,	
 	
 	source String,
-	adminComment String
+	adminComment TextBlob
 }
 
 entity TrailPath {

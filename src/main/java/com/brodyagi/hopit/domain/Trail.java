@@ -28,12 +28,14 @@ public class Trail implements Serializable {
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
+    @Lob
     @Column(name = "description")
     private String description;
 
     @Column(name = "short_description")
     private String shortDescription;
 
+    @Lob
     @Column(name = "special_rules")
     private String specialRules;
 
@@ -91,6 +93,7 @@ public class Trail implements Serializable {
     @Column(name = "source")
     private String source;
 
+    @Lob
     @Column(name = "admin_comment")
     private String adminComment;
 
